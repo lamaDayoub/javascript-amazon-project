@@ -130,27 +130,11 @@ document.querySelectorAll('.js-save-link').forEach((link) => {
   link.addEventListener('click', () => {
     const productId = link.dataset.productId;
     const container = document.querySelector(`.js-cart-item-container-${productId}`);
-    const inputElement = document.querySelector(`.js-quantity-input-${productId}`);
-    const inputValue = inputElement.value;
-    const newQuantity = Number(inputValue);
-    if (isNaN(newQuantity) || inputValue.trim() === '') {
-      alert('Please enter a valid number');
-      return;
-    }
-    if (!Number.isInteger(newQuantity)) {
-      alert('Please enter a whole number');
-      return;
-    }
 
-
-
-    if (newQuantity < 0 || newQuantity >= 1000) {
-      alert('Quantity must be at least 0 and less than 1000');
-      return;
-    }
-
-    updateQuantity(productId, newQuantity);
     container.classList.remove('is-editing-quantity');
+    let newQuantity = Number(document.querySelector(`.js-quantity-input-${productId}`).value);
+    console.log(newQuantity);
+    updateQuantity(productId, newQuantity);
     document.querySelector(`.js-quantity-label-${productId}`).innerHTML = newQuantity;
     updateCartQuantity();
 
