@@ -3,26 +3,31 @@ import { getProduct } from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryOptions.js';
 import { formatCurrency } from '../utils/money.js';
 export function renderPaymentSummary() {
-    let productPriceCents = 0;
-    let deliveryPriceCents = 0;
-    cart.forEach((cartItem) => {
-        const product = getProduct(cartItem.productId);
-        const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
-        productPriceCents += (product.priceCents * cartItem.quantity);
-        deliveryPriceCents += deliveryOption.priceCents;
+  let productPriceCents = 0;
+  let deliveryPriceCents = 0;
+  cart.forEach((cartItem) => {
+    const product = getProduct(cartItem.productId);
+    const deliveryOption = getDeliveryOption(cartItem.deliveryOptionId);
+    productPriceCents += (product.priceCents * cartItem.quantity);
+    deliveryPriceCents += deliveryOption.priceCents;
 
 
-    });
-    const totalBeforTaxCents = productPriceCents + deliveryPriceCents;
-    const taxCents = totalBeforTaxCents * 0.1;
-    const totalCents = totalBeforTaxCents + taxCents;
-    const paymentSummaryHTML = `
+  });
+  const totalBeforTaxCents = productPriceCents + deliveryPriceCents;
+  const taxCents = totalBeforTaxCents * 0.1;
+  const totalCents = totalBeforTaxCents + taxCents;
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+
+  });
+  const paymentSummaryHTML = `
         <div class="payment-summary-title">
           Order Summary
         </div>
 
         <div class="payment-summary-row">
-          <div>Items ${cart.length}:</div>
+          <div>Items: ${cartQuantity}</div>
           <div class="payment-summary-money">$${formatCurrency(productPriceCents)}</div>
         </div>
 
@@ -54,6 +59,6 @@ export function renderPaymentSummary() {
     
     
     `;
-    document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+  document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
 
 }
