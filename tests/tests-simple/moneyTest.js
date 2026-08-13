@@ -32,3 +32,9 @@ if (formatCurrency(2000.4) === '20.00') {
 } else {
     console.log('failed');
 }
+console.log('negative case :')
+if (formatCurrency(-2000.1) === '-20.00') {
+    console.log('pased');
+} else {
+    console.log('failed');
+}
