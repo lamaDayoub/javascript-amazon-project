@@ -9,7 +9,7 @@ export function getProduct(productId) {
   });
   return matchingProduct;
 }
-class Product {
+export class Product {
   id;
   image;
   name;
@@ -36,7 +36,7 @@ class Product {
   }
 }
 
-class Clothing extends Product {
+export class Clothing extends Product {
   sizeChartLink;
   constructor(productDetails) {
     super(productDetails);
@@ -52,6 +52,29 @@ class Clothing extends Product {
   }
 
 }
+export class Appliance extends Product {
+  instructionsLink;
+  warrantyLink;
+  constructor(productDetails) {
+    super(productDetails);
+    this.instructionsLink = productDetails.instructionsLink;
+    this.warrantyLink = productDetails.warrantyLink;
+
+  }
+  extraInfoHTML() {
+    //super.extraInfoHTML();
+    return `
+      <a href="${this.instructionsLink}" target="_blank">Instructionst</a>
+      <a href="${this.warrantyLink}" target="_blank">Warranty</a>
+    
+    `;
+  }
+
+}
+
+/*const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());*/
 
 export const products = [
   {
@@ -109,6 +132,9 @@ export const products = [
       count: 2197
     },
     priceCents: 1899,
+    type: 'appliance',
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png',
     keywords: [
       "toaster",
       "kitchen",
@@ -599,6 +625,9 @@ export const products = [
       count: 1211
     },
     priceCents: 2250,
+    type: 'appliance',
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png',
     keywords: [
       "coffeemakers",
       "kitchen",
@@ -659,6 +688,9 @@ export const products = [
       count: 3
     },
     priceCents: 10747,
+    type: 'appliance',
+    instructionsLink: 'images/appliance-instructions.png',
+    warrantyLink: 'images/appliance-warranty.png',
     keywords: [
       "food blenders",
       "kitchen",
@@ -754,7 +786,11 @@ export const products = [
   if (productDetails.type === 'clothing') {
     return new Clothing(productDetails);
 
-  } else {
+  } else if (productDetails.type === 'appliance') {
+    return new Appliance(productDetails);
+
+  }
+  else {
     return new Product(productDetails);
   }
 });
