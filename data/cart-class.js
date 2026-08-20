@@ -119,8 +119,5 @@ const cart = new Cart('cart-oop');
 const businessCart = new Cart('buisness-cart-oop');
 
 
-console.log(cart);
-console.log(businessCart);
 
-console.log(cart instanceof Cart);
 
